@@ -5,6 +5,7 @@
    ["react-native" :as rn]
    ["react" :as react]
    ["@react-navigation/native" :refer [NavigationContainer]]
+   [steroid.rn.core :as rns]
    [reagent.core :as r]
    [re-frame.core :as rf]
    [shadow.expo :as expo]
@@ -58,10 +59,15 @@
        [:> rn/Image {:source splash-img :style {:width 200 :height 200}}]
        [:> rn/Text {:style (.-label styles)} "Using: shadow-cljs+expo+reagent+re-frame"]]])))
 
+(defn root-comp []
+  [rns/safe-area-view
+   [rns/view
+    [rns/text "Hello CLojure! from CLJS"]]])
+
 (defn start
   {:dev/after-load true}
   []
-  (expo/render-root (r/as-element [root])))
+  (expo/render-root (r/as-element [(rn/register-reload-comp "ClojureRNProject" root-comp)])))
 
 (defn init []
   (rf/dispatch-sync [:initialize-db])

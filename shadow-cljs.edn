@@ -5,7 +5,10 @@
   {:target :react-native
    :init-fn example.app/init
    :output-dir "app"
-   :compiler-options {:infer-externs :auto}
+   :compiler-options {:infer-externs :auto
+                      :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}}
    :devtools {:autoload true
-              :preloads [shadow.expo.keep-awake]}}}}
+              :after-load steroid.rn.core/reload
+              :build-notify steroid.rn.core/build-notify
+              :preloads [shadow.expo.keep-awake re-frisk-remote.preload]}}}}
 
